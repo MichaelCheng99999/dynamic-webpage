@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<style>
+
+@font-face{
+	font-family:"German 1";
+	src: url('font/alte-schwabacher/AlteSchwabacher.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body{
+	font-family: "Times New Roman", serif;
+	background: #grey;
+	font-weight: 400;
+	font-size: 15px;
+	color: #333;
+	overflow: hidden;
+	-webkit-font-smoothing: antialiased;
+}
+a{
+	text-decoration: none;
+	color: #555;
+}
+.clr{
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	clear: both;
+	padding: 0;
+	margin: 0;
+}
+.st-container{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	font-family: "Times New Roman";
+}
+.st-container > input,
+.st-container > a{
+	width: 20%;
+	height: 34px;
+	line-height: 34px;
+	position: fixed;
+	bottom: 0;
+	cursor: pointer;
+}
+
+.st-container > input{
+	opacity: 0;
+	z-index: 1000;
+	
+}
+.st-container > a{
+	z-index: 10;
+	font-weight: 700;
+	font-size: 16px;
+	background: black;
+	text-align: center;
+	color: white;
+	text-shadow: 1px 1px 1px rgba(151, 24, 64, 0.2);
+}
+
+
+#st-control-1, #st-control-1 + a{
+	left: 0%;
+}
+#st-control-2, #st-control-2 + a{
+	left: 20%;
+}
+#st-control-3, #st-control-3 + a{
+	left: 40%;
+}
+#st-control-4, #st-control-4 + a{
+	left: 60%;
+}
+#st-control-5, #st-control-5 + a{
+	left: 80%;
+}
+
+.st-container input:checked + a, .st-container input:checked:hover +a {
+	background: red;
+}
+
+.st-container input:checked +a:after{
+	content:"";
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	border: 20px solid transparent;
+	border-bottom-color: red;
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	margin-left: -20px;
+}
+.st-container input:hover + a{
+	background: grey;
+}
+
+
+.st-scroll,.st-panel{
+	width: 100%;
+	height: 100%;
+	position: relative;
+	
+}
+
+.st-scroll{
+	left: 0;
+	top: 0;
+	-webkit-transform: translate3d(0,0,0);
+	-moz-transform: translate3d(0,0,0);
+	-o-transform: translate3d(0,0,0);
+	-ms-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+	-webkit-backface-visibility: hidden;
+	-webkit-transition: all 0.6s ease-in-out;
+	-moz-transition: all 0.6s ease-in-out;
+	-o-transition: all 0.6s ease-in-out;
+	-ms-transition: all 0.6s ease-in-out;
+	transition: all 0.6s ease-in-out;
+}
+
+.st-panel{
+	background: white;
+	overflow: hidden;
+	
+}
+
+#st-control-1:checked ~ .st-scroll{
+	-webkit-transform:translateY(0%);
+	-moz-transform:translateY(0%);
+	-o-transform:translateY(0%);
+	-ms-transform:translateY(0%);
+	transform:translateY(0%);
+}
+#st-control-2:checked ~ .st-scroll{
+	-webkit-transform:translateY(-100%);
+	-moz-transform:translateY(-100%);
+	-o-transform:translateY(-100%);
+	-ms-transform:translateY(-100%);
+	transform:translateY(-100%);
+}
+#st-control-3:checked ~ .st-scroll{
+	-webkit-transform:translateY(-200%);
+	-moz-transform:translateY(-200%);
+	-o-transform:translateY(-200%);
+	-ms-transform:translateY(-200%);
+	transform:translateY(-200%);
+}
+#st-control-4:checked ~ .st-scroll{
+	-webkit-transform:translateY(-300%);
+	-moz-transform:translateY(-300%);
+	-o-transform:translateY(-300%);
+	-ms-transform:translateY(-300%);
+	transform:translateY(-300%);
+}
+#st-control-5:checked ~ .st-scroll{
+	-webkit-transform:translateY(-400%);
+	-moz-transform:translateY(-400%);
+	-o-transform:translateY(-400%);
+	-ms-transform:translateY(-400%);
+	transform:translateY(-400%);
+}
+
+.st-desc{
+	width: 200px;
+	height: 200px;
+	background: grey;
+	position: absolute;
+	left: 50%;
+	top: 0;
+	margin-left: -100px;
+	-webkit-transform: translateY(-50%) rotate(45deg);
+	-moz-transform: translateY(-50%) rotate(45deg);
+	-o-transform: translateY(-50%) rotate(45deg);
+	-ms-transform: translateY(-50%) rotate(45deg);
+	transform: translateY(-50%) rotate(45deg);
+}
+
+[data-icon]:after{
+	content: attr(data-icon);
+	width: 200px;
+	height: 200px;
+/*	background: white;*/
+	font-family: "German 1";
+	color: black;
+	font-size: 90px;
+	text-align: center;
+	line-height: 200px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin: -100px 0 0 -100px;
+	-webkit-transform: rotate(-45deg) translateY(25%);
+	-moz-transform: rotate(-45deg) translateY(25%);
+	-o-transform: rotate(-45deg) translateY(25%);
+	-ms-transform: rotate(-45deg) translateY(25%);
+	transform: rotate(-45deg) translateY(25%);
+
+}
+
+.st-panel h2{
+	color: black;
+	font-size: 54px;
+	font-weight: 900;
+	line-height: 50px;
+	text-align: center;
+	width: 80%;
+	position: absolute;
+	left: 10%;
+	top: 50%;
+	margin-top: -70px;
+	text-shadow: 1px 1px 1px rgba(151, 24, 64, 0.2);
+	-webkit-backface-visibility: hidden;
+	
+}
+
+#st-control-1:checked ~ .st-scroll #st-panel-1 h2, 
+#st-control-2:checked ~ .st-scroll #st-panel-2 h2, 
+#st-control-3:checked ~ .st-scroll #st-panel-3 h2, 
+#st-control-4:checked ~ .st-scroll #st-panel-4 h2, 
+#st-control-5:checked ~ .st-scroll #st-panel-5 h2{
+	-webkit-animation: moveDown 1s ease-in-out 0.2s backwards;
+	-moz-animation: moveDown 1s ease-in-out 0.2s backwards;
+	-o-animation: moveDown 1s ease-in-out 0.2s backwards;
+	-ms-animation: moveDown 1s ease-in-out 0.2s backwards;
+	-animation: moveDown 1s ease-in-out 0.2s backwards;
+	
+}
+
+@-webkit-keyframes moveDown{
+	0%{
+		-webkit-transform: translateY(-40px);
+		opacity: 0;
+	}
+	100%{
+		-webkit-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+
+@-moz-keyframes moveDown{
+	0%{
+		-webkit-transform: translateY(-40px);
+		opacity: 0;
+	}
+	100%{
+		-webkit-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+
+@-o-keyframes moveDown{
+	0%{
+		-webkit-transform: translateY(-40px);
+		opacity: 0;
+	}
+	100%{
+		-webkit-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+
+@-ms-keyframes moveDown{
+	0%{
+		-webkit-transform: translateY(-40px);
+		opacity: 0;
+	}
+	100%{
+		-webkit-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+
+@keyframes moveDown{
+	0%{
+		-webkit-transform: translateY(-40px);
+		opacity: 0;
+	}
+	100%{
+		-webkit-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+
+.st-panel p{
+	position: absolute;
+	width: 50%;
+	left: 25%;
+	top: 50%;
+	font-size: 16px;
+	line-height: 22px;
+	padding: 0;
+	text-align: center;
+	-webkit-backface-visibility: hidden;
+	margin-top: 10px;
+}
+
+#st-control-1:checked ~ .st-scroll #st-panel-1 p, 
+#st-control-2:checked ~ .st-scroll #st-panel-2 p, 
+#st-control-3:checked ~ .st-scroll #st-panel-3 p, 
+#st-control-4:checked ~ .st-scroll #st-panel-4 p, 
+#st-control-5:checked ~ .st-scroll #st-panel-5 p {
+	-webkit-animation: moveUp 0.6s ease-in-out 0.2s backwards;
+	-moz-animation: moveUp 0.6s ease-in-out 0.2s backwards;
+	-o-animation: moveUp 0.6s ease-in-out 0.2s backwards;
+	-ms-animation: moveUp 0.6s ease-in-out 0.2s backwards;
+	-animation: moveUp 0.6s ease-in-out 0.2s backwards;
+}
+
+@-webkit-keyframes moveUp{
+	0%{
+		-webkit-transform: translateY(40px);
+		opacity: 0;
+	}
+	100%{
+		-webkit-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+
+@-o-keyframes moveUp{
+	0%{
+		-webkit-transform: translateY(40px);
+		opacity: 0;
+	}
+	100%{
+		-webkit-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+
+@-moz-keyframes moveUp{
+	0%{
+		-webkit-transform: translateY(40px);
+		opacity: 0;
+	}
+	100%{
+		-webkit-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+
+@-ms-keyframes moveUp{
+	0%{
+		-webkit-transform: translateY(40px);
+		opacity: 0;
+	}
+	100%{
+		-webkit-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+
+@keyframes moveUp{
+	0%{
+		-webkit-transform: translateY(40px);
+		opacity: 0;
+	}
+	100%{
+		-webkit-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+
+.st-color{
+	background: grey;
+}
+.st-color .st-desc{
+	background: white;
+}
+
+
+
+</style>
+<head>
+	<title>Air Jordan Smooth</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE-edge, chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<div class="container">
+		<div class="st-container">
+		<!--Navi begin -->
+		<input type="radio" name="radio-set" checked="checked" id="st-control-1">
+		<a href="#st-panel-1">Air Jordan</a>
+		<input type="radio" name="radio-set" id="st-control-2">
+		<a href="#st-panel-2">Nike</a>
+		<input type="radio" name="radio-set" id="st-control-3">
+		<a href="#st-panel-3">Adidas</a>
+		<input type="radio" name="radio-set" id="st-control-4">
+		<a href="#st-panel-4">Under Armor</a>
+		<input type="radio" name="radio-set" id="st-control-5">
+		<a href="#st-panel-5">Reebok</a>
+		
+		<!--Navi end -->
+		<div class="st-scroll">
+			<section class="st-panel" id="st-panel-1">
+			<div class="st-desc" data-icon="AJ"></div>
+			<h2>Air Jordan</h2>
+			<p>Air Jordan is a brand of shoes and athletic clothing designed, owned, and produced for Michael Jordan by Nike's Jordan Brand subsidiary. The shoe concept was made by Michael Jordan before the drawing. Nike then got Peter Moore and Bruce Kilgore to draw the Shoe. The shoes, informally referred to in the plural as Jordans, were first produced for Michael Jordan in 1984 and released for public consumption in 1985.</p>
+			</section>
+			<section class="st-panel st-color" id="st-panel-2">
+			<div class="st-desc" data-icon="N"></div>
+			<h2>Nike</h2>
+			<p>NIKE, Inc., incorporated on September 8, 1969, is engaged in the design, development, marketing and selling of athletic footwear, apparel, equipment, accessories and services. The Company sells its products to retail accounts, through NIKE-owned retail stores and Internet Websites (which the Company refers to as its Direct to Consumer or DTC operations), and through a mix of independent distributors and licensees throughout the world. All of the Company's products are manufactured by independent contractors. The Company's all footwear and apparel products are produced outside the United States, while equipment products are produced both in the United States and abroad. The Company operates in North America, Western Europe, Central & Eastern Europe, Greater China, Japan and Emerging Markets.</p>
+			</section>
+			<section class="st-panel" id="st-panel-3">
+			<div class="st-desc" data-icon="A"></div>
+			<h2>Adidas</h2>
+			<p>Adidas AG (German pronunciation: [ˈadiˌdas]) is a German multinational corporation that designs and manufactures sports shoes, clothing and accessories headquartered in Herzogenaurach, Bavaria. It is the largest sportswear manufacturer in Europe and the second biggest in the world, after Nike</p>
+			</section>
+			<section class="st-panel st-color" id="st-panel-4">
+			<div class="st-desc" data-icon="UA"></div>
+			<h2>Under Armour</h2>
+			<p>Under Armour, Inc. is an American sports clothing and accessories company. The company is a supplier of sportswear and casual apparel. Under Armour began offering footwear in 2006. Under Armour's global headquarters is located in Baltimore, Maryland with additional North American corporate office locations in Austin and Houston Tex.; Denver, Colo.; New York, NY; Portland, Ore.; and Toronto, Canada. </p>
+			</section>
+			<section class="st-panel" id="st-panel-5">
+			<div class="st-desc" data-icon="R"></div>
+			<h2>Reebok</h2>
+			<p>Reebok International Ltd. is a global athletic footwear and apparel company. Reebok produces and distributes fitness and sports items including shoes, workout clothing and accessories, and training equipment. Reebok is the official footwear and apparel sponsor for UFC, CrossFit, Spartan Race, and Les Mills.</p>
+			</section>
+	</div>
+	</div>	
+</body>
+</html>
